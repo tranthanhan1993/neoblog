@@ -22,3 +22,6 @@ Route::post('user-login', [
 	'as' => 'user-login',
 	'uses' => 'User\LoginController@store'
 ]);
+
+//worker: php artisan queue:listen in procfile
+
