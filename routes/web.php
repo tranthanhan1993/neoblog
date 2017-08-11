@@ -12,8 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('blog');
 });
+Route::get('blog', 'BlogController@index');
+Route::get('blog/{slug}', 'BlogController@showPost');
 
 Auth::routes();
 
@@ -25,6 +27,7 @@ Route::post('user-login', [
 Route::get('test', function(){
   echo 'hello the world';
 });
+// Route::get('hello',)
 
 //worker: php artisan queue:listen in procfile
 
