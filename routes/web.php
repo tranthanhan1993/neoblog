@@ -22,6 +22,9 @@ Route::post('user-login', [
 	'as' => 'user-login',
 	'uses' => 'User\LoginController@store'
 ]);
+Route::get('test', function(){
+  echo 'hello the world';
+});
 
 //worker: php artisan queue:listen in procfile
 
