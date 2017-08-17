@@ -12,8 +12,8 @@ class BlogController extends Controller
     {
       $posts = Post::orderBy('published_at', 'desc')
           ->paginate(config('blog.posts_per_page'));
-      $stt = 1;
-      return view('blog.index', compact('posts', '$stt'));
+
+      return view('blog.index', compact('posts'));
     }
     public function showPost($slug)
     {

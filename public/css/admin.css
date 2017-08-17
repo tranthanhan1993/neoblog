@@ -1,0 +1,14 @@
+@import //font.googleapis.com/css?family=Roboto:400,300;
+
+@btn-font-weight : 300;
+@font-family-sans-serif : "Roboto",
+Helvetica,
+Arial,
+sans-serif;
+body,
+label,
+.checkbox label {
+  font-weight: 300;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlc291cmNlcy9hc3NldHMvc2Fzcy9hZG1pbi5zY3NzIl0sInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIvL2ZvbnQuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1Sb2JvdG86NDAwLDMwMFwiO1xuXG5AYnRuLWZvbnQtd2VpZ2h0OiAzMDA7XG5AZm9udC1mYW1pbHktc2Fucy1zZXJpZjogXCJSb2JvdG9cIiwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZjtcblxuYm9keSwgbGFiZWwsIC5jaGVja2JveCBsYWJlbCB7XG4gIGZvbnQtd2VpZ2h0OiAzMDA7XG59Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sQ0FBUCwrQ0FBTztBQUVQLGdCQUFnQixDQUFoQixLQUFnQjtBQUNoQix1QkFBdUIsQ0FBdkIsd0NBQXVCO0FBRXZCLEFBQUEsSUFBSSxFQUFFLEFBQUEsS0FBSyxFQUFFLEFBQVUsU0FBRCxDQUFDLEtBQUssQ0FBQztFQUMzQixXQUFXLEVBQUUsR0FBRztDQUNqQiJ9 */

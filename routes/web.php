@@ -17,17 +17,22 @@ Route::get('/', function () {
 Route::get('blog', 'BlogController@index');
 Route::get('blog/{slug}', 'BlogController@showPost');
 
+Route::get('admin', function(){
+    return redirect('admin/post');
+});
+
+Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function(){
+    Route::resource('/admin/tag', 'TagController', ['except' => 'show']);
+    Route::resource('/admin/post', 'PostController');
+    Route::get('admin/upload', 'UploadController@index');
+});
+//worker: php artisan queue:listen in procfile
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('user-login', [
-	'as' => 'user-login',
-	'uses' => 'User\LoginController@store'
-]);
-Route::get('test', function(){
-  echo 'hello the world';
+Route::get('test', function() {
+    return view('admin.layout');
 });
-// Route::get('hello',)
-
-//worker: php artisan queue:listen in procfile
-
+Route::resource('photos/', 'PhotoController');
