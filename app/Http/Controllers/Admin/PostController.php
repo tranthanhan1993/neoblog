@@ -51,6 +51,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->only(['title', 'content', 'tag_id', 'published']);
+        
         $published = $data['published'] ? : '0';
 
         $post = new Post;
