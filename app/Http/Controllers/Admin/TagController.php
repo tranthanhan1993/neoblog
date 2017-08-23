@@ -16,15 +16,6 @@ class TagController extends Controller
     {
         $this->tagRepository = $tagRepository;
     }
-    protected $fields = [
-        'tag' => '',
-        'title' => '',
-        'subtitle' => '',
-        'meta_description' => '',
-        'page_image' => '',
-        'layout' => 'blog.layouts.index',
-        'reverse_direction' => 0,
-    ];
     /**
      * Display a listing of the resource.
      *
@@ -44,12 +35,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        $data = [];
-        foreach ($this->fields as $field => $default) {
-          $data[$field] = old($field, $default);
-        }
-
-        return view('admin.tag.create', $data);
+        return view('admin.tag.create');
     }
 
     /**
@@ -60,14 +46,14 @@ class TagController extends Controller
      */
     public function store(TagCreateRequest $request)
     {
-        $tag = new Tag();
-        foreach (array_keys($this->fields) as $field) {
-          $tag->$field = $request->get($field);
+        $input = $request->only('name');
+
+        if ($this->tagRepository->create($input)) {
+            return redirect()->action('Admin\TagController@index')->withSuccess('Create Tag success!!');
         }
-        $tag->save();
 
         return redirect('/admin/tag')
-            ->withSuccess("The tag '$tag->tag' was created.");
+            ->withFails("Tag was created Fails.");
     }
 
     /**
@@ -79,12 +65,8 @@ class TagController extends Controller
     public function edit($id)
     {
         $tag = Tag::findOrFail($id);
-        $data = ['id' => $id];
-        foreach (array_keys($this->fields) as $field) {
-          $data[$field] = old($field, $tag->$field);
-        }
 
-        return view('admin.tag.edit', $data);
+        return view('admin.tag.edit', compact(['tag', 'id']));
     }
 
     /**
@@ -96,15 +78,15 @@ class TagController extends Controller
      */
     public function update(TagUpdateRequest $request, $id)
     {
-        $tag = Tag::findOrFail($id);
+        $tag = $request->only('name');
 
-        foreach (array_keys(array_except($this->fields, ['tag'])) as $field) {
-          $tag->$field = $request->get($field);
+        if ($this->tagRepository->update($tag, $id)) {
+            return redirect()->action('Admin\TagController@index')
+                ->with('success', 'Update Tag Success');
         }
-        $tag->save();
 
-        return redirect("/admin/tag/$id/edit")
-            ->withSuccess("Changes saved.");
+        return redirect("/admin/tag")
+            ->withFails("Changes saved Fails");
     }
 
     /**
@@ -120,5 +102,10 @@ class TagController extends Controller
 
         return redirect('/admin/tag')
             ->withSuccess("The '$tag->tag' tag has been deleted.");
+    }
+
+    public function test()
+    {
+        echo 'test controller';
     }
 }

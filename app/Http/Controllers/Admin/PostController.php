@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Post;
+use App\Http\Requests\PostRequest;
+use App\Models\Tag;
+use App\Repositories\Tag\TagRepository;
+use Auth;
 
 class PostController extends Controller
 {
@@ -12,9 +17,17 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // protected $postRepository;
+
+    // public function __construct(PostRepository $postRepository)
+    // {
+    //     $this->postRepository = $postRepository;
+    // }
     public function index()
     {
-        return view('admin.post.index');
+        $posts = Post::all();
+
+        return view('admin.post.index', compact('posts'));
     }
 
     /**
@@ -24,7 +37,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $tag = Tag::all();
+
+        return view('admin.post.create', compact('tag'));
     }
 
     /**
@@ -33,9 +48,23 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $data = $request->only(['title', 'content', 'tag_id', 'published']);
+        $published = $data['published'] ? : '0';
+
+        $post = new Post;
+        $post->user_id = Auth::user()->id;
+        $post->title = $data['title'];
+        $post->content = $data['content'];
+        $post->tag_id = $data['tag_id'];
+        $post->published = $published;
+        
+        if ($post->save()) {
+            return redirect('admin/post')->withSuccess('Add Post Success');
+        } else {
+            return redirect('admin/post')->withFails('Add post not Success');
+        }
     }
 
     /**
@@ -57,7 +86,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $tag_current = $post->tag;
+        $tags = Tag::all();
+
+        return view('admin.post.edit', compact(['post', 'tags', 'tag_current']));
     }
 
     /**
@@ -80,6 +113,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        dd($post->title);
     }
 }

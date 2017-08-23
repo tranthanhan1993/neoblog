@@ -23,7 +23,9 @@ Route::get('admin', function(){
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function(){
     Route::resource('/admin/tag', 'TagController', ['except' => 'show']);
+    Route::get('/admin/tag/{id}', 'TagController@destroy');
     Route::resource('/admin/post', 'PostController');
+    Route::get('/admin/post/{id}', 'PostController@destroy')->where('id', '[0-9]+'); ;
     Route::get('admin/upload', 'UploadController@index');
 });
 //worker: php artisan queue:listen in procfile
@@ -36,3 +38,4 @@ Route::get('test', function() {
     return view('admin.layout');
 });
 Route::resource('photos/', 'PhotoController');
+Route::get('logout', 'Auth\LoginController@logout');

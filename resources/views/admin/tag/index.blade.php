@@ -22,37 +22,26 @@
         <table id="tags-table" class="table table-striped table-bordered">
           <thead>
           <tr>
-            <th>Tag</th>
-            <th>Title</th>
-            <th class="hidden-sm">Subtitle</th>
-            <th class="hidden-md">Page Image</th>
-            <th class="hidden-md">Meta Description</th>
-            <th class="hidden-md">Layout</th>
-            <th class="hidden-sm">Direction</th>
+            <th>Tag ID</th>
+            <th>Tag Name</th>
             <th data-sortable="false">Actions</th>
           </tr>
           </thead>
           <tbody>
           @foreach ($tags as $tag)
             <tr>
-              <td>{{ $tag->tag }}</td>
-              <td>{{ $tag->title }}</td>
-              <td class="hidden-sm">{{ $tag->subtitle }}</td>
-              <td class="hidden-md">{{ $tag->page_image }}</td>
-              <td class="hidden-md">{{ $tag->meta_description }}</td>
-              <td class="hidden-md">{{ $tag->layout }}</td>
-              <td class="hidden-sm">
-                @if ($tag->reverse_direction)
-                  Reverse
-                @else
-                  Normal
-                @endif
-              </td>
+              <td class="col-sm-2">{{ $tag->id }}</td>
+              <td class="col-sm-8">{{ $tag->name }}</td>
               <td>
-                <a href="{!! action('Admin\TagController@edit', [$tag->id]) !!}"
-                   class="btn btn-xs btn-info">
-                  <i class="fa fa-edit"></i> Edit
-                </a>
+                <form method="DELETE" action="{{ url('admin/tag/'.$tag->id) }}">
+                  <a href="{!! action('Admin\TagController@edit', [$tag->id]) !!}"
+                     class="btn btn-xs btn-info">
+                    <i class="fa fa-edit"></i> Edit
+                  </a>
+                  <button class="btn btn-xs btn-danger" type="submit" onclick="return confirm('Do you want to delete tag!!')">
+                    <i class="fa fa-trash"></i> Delete
+                  </button> 
+                </form> 
               </td>
             </tr>
           @endforeach

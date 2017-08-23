@@ -23,17 +23,15 @@
                   action="/admin/tag/{{ $id }}">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="_method" value="PUT">
-              <input type="hidden" name="id" value="{{ $id }}">
+              <input type="hidden" name="id" value="">
 
               <div class="form-group">
-                <label for="tag" class="col-md-3 control-label">Tag</label>
-                <div class="col-md-3">
-                  <p class="form-control-static">{{ $tag }}</p>
+                <label for="tag" class="col-md-2 control-label">Tag</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" name="name" id="tag"
+                         value="{{$tag->name}}" autofocus>
                 </div>
               </div>
-
-              @include('admin.tag.form_create')
-
               <div class="form-group">
                 <div class="col-md-7 col-md-offset-3">
                   <button type="submit" class="btn btn-primary btn-md">

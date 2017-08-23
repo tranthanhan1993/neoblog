@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $dates = ['published_at'];
-    protected $fillable = ['slug', 'title', 'content', 'published_at'];
+    protected $fillable = ['slug', 'title', 'content', 'published'];
 
     public function setTitleAttribute($value)
     {
@@ -15,5 +14,10 @@ class Post extends Model
       if (! $this->exists) {
         $this->attributes['slug'] =  str_slug($value);
       }
+    }
+
+    public function tag()
+    {
+        return $this->belongsTo('App\Models\Tag');
     }
 }
