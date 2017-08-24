@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['slug', 'title', 'content', 'published', 'user_id', 'tag_id'];
+    protected $fillable = ['title', 'content', 'published', 'user_id', 'tag_id', 'image'];
 
     protected $table = 'posts';
 
@@ -21,5 +21,15 @@ class Post extends Model
     public function tag()
     {
         return $this->belongsTo('App\Models\Tag');
+    }
+
+    public function comments()
+    {
+      return $this->hasMany('App\Models\Comment');
+    }
+
+    public function getImagePath()
+    {
+        return asset(config('settings.image_url') . $this->image);
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Tag;
 use App\Repositories\Tag\TagRepository;
 use Auth;
+use Illuminate\Support\Facades\Input;
 
 class PostController extends Controller
 {
@@ -54,18 +55,39 @@ class PostController extends Controller
         
         $published = $data['published'] ? : '0';
 
+        if (isset($request['image'])) {
+            $fileName = $this->uploadImage(null);
+        } else {
+            $fileName =  config('settings.image_default');
+        }
+        
         $post = new Post;
         $post->user_id = Auth::user()->id;
         $post->title = $data['title'];
         $post->content = $data['content'];
         $post->tag_id = $data['tag_id'];
         $post->published = $published;
+        $post->image = $fileName;
+        
         
         if ($post->save()) {
             return redirect('admin/post')->withSuccess('Add Post Success');
         } else {
             return redirect('admin/post')->withFails('Add post not Success');
         }
+    }
+
+    public function uploadImage($oldImage)
+    {
+        $file = Input::file('image');
+        $destinationPath = base_path() . config('settings.image_url');
+        $fileName = uniqid(rand(), true) . '.' . $file->getClientOriginalExtension();
+        Input::file('image')->move($destinationPath, $fileName);
+        if (!empty($oldImage) && file_exists($oldImage)) {
+            File::delete($oldImage);
+        }
+
+        return $fileName;
     }
 
     /**
@@ -101,9 +123,29 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $tag_id = Post::findOrFail($id)->tag->id;
+        $user_id = Auth::user()->id;
+        $published = $request->published ? 1 : 0; 
+        $content = $request->content;
+        $title = $request->title;
+
+        $data =[
+            'content' => $content,
+            'title' => $title,
+            'published' => $published,
+            'user_id' => $user_id,
+            'tag_id' => $tag_id,
+        ];
+
+        if ($post->update($data)) {
+            return redirect('admin/post')->withSuccess('Update post success');
+        }
+
+        return redirect('admin/post')->withFails('Update Post Fails');
     }
 
     /**
@@ -116,6 +158,10 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        dd($post->title);
+        if ($post->delete()) {
+            return redirect('admin/post')->withSuccess('Delete Post success');
+        }
+
+        return redirect('admin/post')->withFails('Delete Post Fails');
     }
 }

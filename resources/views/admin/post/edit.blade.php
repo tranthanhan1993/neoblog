@@ -18,8 +18,8 @@
 
             @include('admin.partials.errors')
 
-            <form class="form-horizontal" role="form" method="POST"
-                  action="{{route('post.update', [$post->id])}}">
+            <form class="form-horizontal" role="form" method="post"
+                  action="{{action('Admin\PostController@update', [$post->id])}}">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
               <div class="form-group">
@@ -48,6 +48,13 @@
                         @endforeach
                     </select>     
                  </div>
+              </div>
+              <div class="form-group">
+                <label for="image-post" class="col-md-2 control-label">Image</label>
+                <div  class="col-md-6" style="margin-left: 10px;">
+                  <input type="file" name="image" id="fileToUpload">                  
+                </div>
+              </div>      
               <div class="form-group" style="margin-left: 10px;margin-top: 20px; color: red;">        
                   <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox check-add-post">

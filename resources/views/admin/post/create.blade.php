@@ -19,7 +19,7 @@
             @include('admin.partials.errors')
 
             <form class="form-horizontal" role="form" method="POST"
-                  action="/admin/post">
+                  action="/admin/post" enctype="multipart/form-data">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
               <div class="form-group">
@@ -40,20 +40,30 @@
               <div style="clear: both"></div>
               <div class="form-group" style="margin-top: 10px">
                  <label for="tag_id" class="col-md-2 control-label">Tag</label>
-                 <div class="col-md-4" style="margin-left: 10px;">
-                    <select class="form-control" name="tag_id" id="tag_id">
+                 <div class="col-md-6" style="margin-left: 10px;">
+                    <select class="form-control col-md-4 select-tag" name="tag_id" id="tag_id">
                         @foreach ($tag as $t)
                         <option value="{{$t->id}}">{{$t->name}}</option>
                         @endforeach
-                    </select>     
+                    </select> 
+                    <div class="add-tag">
+                      <a href="/admin/tag/create-modal">Add New Tag</a>
+                    </div>     
                  </div>
+              </div>
+              <div class="form-group">
+                <label for="image-post" class="col-md-2 control-label">Image</label>
+                <div  class="col-md-6" style="margin-left: 10px;">
+                  <input type="file" name="image" id="fileToUpload">                  
+                </div>
+              </div>   
               <div class="form-group" style="margin-left: 10px;margin-top: 20px; color: red;">        
                   <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox check-add-post">
                       <label><input type="checkbox" name="published" value="1">Published</label>
                     </div>
                   </div>
-                </div>
+              </div>
               <div class="form-group">
                 <div class="col-md-7 col-md-offset-3">
                   <button type="submit" class="btn btn-primary btn-md">

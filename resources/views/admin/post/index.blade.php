@@ -19,12 +19,13 @@
                 <a href="{{url('admin/post/create')}}" class="btn btn-info btn-add-post">Add Post</a>
                   <thead>
                   <tr>
-                    <th >Post ID</th>
+                    <th>Post ID</th>
                     <th>Post Title</th>
                     <th>Post Slug</th>
                     <th>Post Content</th>
                     <th>Tag Name</th>
                     <th>Post published</th>
+                    <th>Image</th>
                     <th data-sortable="false">Actions</th>
                   </tr>
                   </thead>
@@ -32,15 +33,16 @@
                   @foreach ($posts as $post)
                     <tr>
                       <td class="col-sm-1">{{ $post->id }}</td>
-                      <td class="col-sm-2">{{ $post->title }}</td>
-                      <td class="col-sm-2">{{ $post->slug }}</td>
-                      <td class="col-sm-6">
+                      <td class="col-sm-1">{{ $post->title }}</td>
+                      <td class="col-sm-1">{{ $post->slug }}</td>
+                      <td class="col-sm-4">
                       <textarea name="content" cols="80" rows="4" value="">{{ $post->content }}</textarea>
                       </td>
                       <td>{{$post->tag->name}}</td>
-                      <td class="col-sm-0">{{ $post->published }}</td>
+                      <td class="col-sm-1">{{ $post->published }}</td>
+                      <td class="col-sm-2">{{$post->image}}</td>
                       <td class="col-sm-2">
-                        <form method="DELETE" action="{{ url('admin/post/'.$post->id) }}">
+                        <form method="DELETE" action="{{ url('admin/post/delete/'.$post->id) }}">
                           <a href="{!! action('Admin\PostController@edit', [$post->id]) !!}"
                              class="btn btn-xs btn-info">
                             <i class="fa fa-edit"></i> Edit
