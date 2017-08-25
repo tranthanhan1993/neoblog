@@ -12,31 +12,32 @@
 */
 
 Route::get('/', 'BlogController@index');
-// Route::get('blog', 'BlogController@index');
 Route::get('post/{slug}', 'BlogController@showPost');
-Route::get('admin', function(){
-    return view('admin.index');
-});
 
-Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function(){
+Route::group(['middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function(){
+    Route::get('admin', 'AdminController@index');
     Route::resource('/admin/tag', 'TagController', ['except' => 'show']);
     Route::get('/admin/tag/{id}', 'TagController@destroy');
     Route::resource('/admin/post', 'PostController');
     Route::get('/admin/post/delete/{id}', 'PostController@destroy')->where('id', '[0-9]+');
     Route::post('/admin/post/{id}', 'PostController@update');
     Route::get('admin/upload', 'UploadController@index');
+    Route::get('admin/message', 'MessageController@index');
+    Route::post('admin/message/delete/{id}', 'MessageController@delete');
+    Route::get('admin/comment', 'CommentController@index');
+    Route::post('admin/comment/delete/{id}', 'CommentController@delete');
 });
-//worker: php artisan queue:listen in procfile
-
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('test', function() {
-    return view('admin.layout');
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('profile', 'UserController@profile');
+    Route::get('profile/edit', 'UserController@editProfile');
+    Route::post('profile/{id}', 'UserController@updateProfile');
+    Route::get('/message', 'MessageController@index');
+    Route::post('/message', 'MessageController@store');
+    Route::post('comment/{id}', 'CommentController@store');
+Route::post('comment/delete/{id}', 'CommentController@delete');
 });
-Route::resource('photos/', 'PhotoController');
+
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::post('comment/{id}', 'CommentController@store');
-Route::post('comment/delete/{id}', 'CommentController@delete');

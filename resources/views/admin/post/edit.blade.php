@@ -29,7 +29,14 @@
                          value="" autofocus>
                 </div>
               </div>
-
+              <div class="form-group">
+                <label for="summary" class="col-md-2 control-label">Content</label>
+                <div class="col-md-8">
+                    <textarea type="text" class="form-control ckeditor" rows="2" name="summary" id="summary"
+                         value="" autofocus>{{$post->summary}}
+                    </textarea>
+              </div>
+              <div style="clear: both"></div>
               <div class="form-group">
                 <label for="content" class="col-md-2 control-label">Content</label>
                 <div class="col-md-8">

@@ -12,7 +12,8 @@
                     @foreach ($posts as $post)
 
                     <li class="media">
-                        <h4 class="media-heading"><a href="#" class="text-info">{{$post->title}}</a></h4>
+
+                        <h4 class="media-heading"><a href="/post/{{$post->slug}}" class="text-info"><img src="{{$post->getImagePath()}}" style="width: 50px;height: 50px;margin-right: 20px;">{{$post->title}}</a></h4>
                         <p class="margin-top-10 margin-bottom-20" style="font-size: 0.8em;">
                             <i class="fa fa-calendar" aria-hidden="true"></i> Sept 12th, 2016
                             <i class="fa fa-comment" aria-hidden="true"></i> <a href="#">5 Comments {{$post->comment}}</a>

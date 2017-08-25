@@ -33,4 +33,36 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['password'] = bcrypt($value);
+        }
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == config('settings.role.admin');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
+
+    public function getAvatarPath()
+    {
+        return asset(config('settings.avatar_path') . $this->avatar);
+    }
 }

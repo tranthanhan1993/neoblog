@@ -7,8 +7,11 @@
     <li @if (Request::is('admin/tag*')) class="active" @endif>
       <a href="/admin/tag">Tags</a>
     </li>
-    <li @if (Request::is('admin/upload*')) class="active" @endif>
-      <a href="/admin/upload">Uploads</a>
+    <li @if (Request::is('admin/message*')) class="active" @endif>
+      <a href="/admin/message">Message</a>
+    </li>
+    <li @if (Request::is('admin/comment*')) class="active" @endif>
+      <a href="/admin/comment">Comment</a>
     </li>
   @endif
 </ul>
@@ -23,7 +26,8 @@
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="logout">Logout</a></li>
+        <li><a href="{{ url('/profile') }}">Profile</a></li>
+        <li><a href="{{ url('/logout') }}">Sign out</a></li>
       </ul>
     </li>
   @endif

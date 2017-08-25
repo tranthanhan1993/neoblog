@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
 use Auth;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, $id)
+    public function store(CommentRequest $request, $id)
     {
         $comment = new Comment;
 
@@ -24,9 +25,9 @@ class CommentController extends Controller
     public function delete($id)
     {
         $comment = Comment::findOrFail($id);
-        dd($comment);
-        // if ($comment->delete()) {
-        //     return back();
-        // }
+
+        if ($comment->delete()) {
+            return back();
+        }
     }
 }

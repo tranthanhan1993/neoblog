@@ -40,7 +40,7 @@
                       </td>
                       <td>{{$post->tag->name}}</td>
                       <td class="col-sm-1">{{ $post->published }}</td>
-                      <td class="col-sm-2">{{$post->image}}</td>
+                      <td class="col-sm-2"><img src="{{$post->getImagePath()}}" style="width: 70px; height: 70px"></td>
                       <td class="col-sm-2">
                         <form method="DELETE" action="{{ url('admin/post/delete/'.$post->id) }}">
                           <a href="{!! action('Admin\PostController@edit', [$post->id]) !!}"

@@ -32,7 +32,7 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('comments', function(Blueprint $table){
+        Schema::table('messages', function(Blueprint $table){
             $table->dropForeign('messages_user_id_foreign');
         });
         

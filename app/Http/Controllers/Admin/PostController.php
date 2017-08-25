@@ -51,14 +51,14 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $data = $request->only(['title', 'content', 'tag_id', 'published']);
+        $data = $request->only(['title', 'content', 'tag_id', 'published', 'summary']);
         
         $published = $data['published'] ? : '0';
 
         if (isset($request['image'])) {
             $fileName = $this->uploadImage(null);
         } else {
-            $fileName =  config('settings.image_default');
+            $fileName =  config('settings.post-img');
         }
         
         $post = new Post;
@@ -68,19 +68,20 @@ class PostController extends Controller
         $post->tag_id = $data['tag_id'];
         $post->published = $published;
         $post->image = $fileName;
-        
+        $post->summary = $data['summary'];
         
         if ($post->save()) {
             return redirect('admin/post')->withSuccess('Add Post Success');
-        } else {
-            return redirect('admin/post')->withFails('Add post not Success');
-        }
+        } 
+        
+        return redirect('admin/post')->withFails('Add post not Success');
+
     }
 
     public function uploadImage($oldImage)
     {
         $file = Input::file('image');
-        $destinationPath = base_path() . config('settings.image_url');
+        $destinationPath = base_path() .'/public' . config('settings.image_url');
         $fileName = uniqid(rand(), true) . '.' . $file->getClientOriginalExtension();
         Input::file('image')->move($destinationPath, $fileName);
         if (!empty($oldImage) && file_exists($oldImage)) {

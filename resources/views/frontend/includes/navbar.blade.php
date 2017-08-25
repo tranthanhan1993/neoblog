@@ -20,9 +20,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="{{ url('/')}}">Blog</a></li>
-            <li><a href="{{ url('/contact')}}">Message</a></li>
+            <li><a href="{{ url('/message')}}">Message</a></li>
             @if (@Auth::user()->role == 1)
-            <li><a href="{{ url('/admin')}}">Admin</a></li>
+            <li><a href="{{ url('/admin')}}">Admin Area</a></li>
             @endif
         </ul>
         <div class="col-sm-4 col-md-4" style="border: 1px solid red--">
@@ -44,7 +44,6 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('/profile') }}">Profile</a></li>
-                        <li><a href="{{ url('/change_password') }}">Change password</a></li>
                         <li><a href="{{ url('/logout') }}">Sign out</a></li>
                     </ul>
                 </li>
