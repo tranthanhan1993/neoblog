@@ -47,7 +47,7 @@ class UserController extends Controller
     public function uploadAvatar($oldImage)
     {
         $file = Input::file('avatar');
-        $destinationPath = base_path() .'/public' . config('settings.avatar_path');
+        $destinationPath = base_path() . config('settings.avatar_path');
         $fileName = uniqid(rand(), true) . '.' . $file->getClientOriginalExtension();
         Input::file('avatar')->move($destinationPath, $fileName);
         if (!empty($oldImage) && file_exists($oldImage)) {
