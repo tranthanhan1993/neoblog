@@ -128,11 +128,18 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
+        if (isset($request->image)) {
+            $fileName = $this->uploadImage(null);
+        } else {
+            $fileName =  config('settings.post-img');
+        }
+
         $tag_id = Post::findOrFail($id)->tag->id;
         $user_id = Auth::user()->id;
         $published = $request->published ? 1 : 0; 
         $content = $request->content;
         $title = $request->title;
+        $summary = $request->summary;
 
         $data =[
             'content' => $content,
@@ -140,6 +147,8 @@ class PostController extends Controller
             'published' => $published,
             'user_id' => $user_id,
             'tag_id' => $tag_id,
+            'summary' => $summary,
+            'image' => $fileName,
         ];
 
         if ($post->update($data)) {

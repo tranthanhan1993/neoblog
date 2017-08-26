@@ -19,7 +19,7 @@
             @include('admin.partials.errors')
 
             <form class="form-horizontal" role="form" method="post"
-                  action="{{action('Admin\PostController@update', [$post->id])}}">
+                  action="{{action('Admin\PostController@update', [$post->id])}}" enctype="multipart/form-data">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
               <div class="form-group">
