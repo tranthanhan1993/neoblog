@@ -18,7 +18,8 @@
                 @endif
                 <form role="form" method="POST" action="{{ url('profile', Auth::user()->id) }}" enctype="multipart/form-data">
                     {{ csrf_field() }}    
-                    <h3 class="form-title" style="text-align: center">My profile Form</h3>
+                    <h3 class="form-title" style="text-align: center">Edit profile Form</h3>
+                    @if(Auth::user()->role != 1)
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-2"> 
                             <div class="row form-group">
@@ -46,7 +47,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="password">Password</label>
-                                    <input id="password" type="password" class="form-control" name="password" required">
+                                    <input id="password" type="password" class="form-control" name="password" required>
                                     @if ($errors->has('password'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -57,7 +58,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="password-confirm">Confirm Password</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                 </div>
                             </div>
 
@@ -68,12 +69,16 @@
                                 </div>
                             </div>
                             @if (Auth::user()->id == $user->id)
-                            <div class="" style="margin-top: 20px;">
-                                <button class="btn btn-primary btn-block" type="submit">Save</button>
-                            </div>
+                                <div class="" style="margin-top: 20px;">
+                                    <button class="btn btn-primary btn-block" type="submit">Save</button>
+                                </div>
                             @endif
                         </div>
                     </div>
+                    @else
+                    <h1 style="text-align: center; color: red">WARRNING!!!!!</h1>
+                    <h2 style="text-align: center">I will call police if you try to change my admin profile, thanks!!<br> If you want change, you can contact with me!!!!</h2>
+                    @endif
                 </form>
 
             </div>

@@ -24,9 +24,11 @@
                                     <img src="{{$user->getAvatarPath()}}" style="width: 80px;height: 80px;">
                                 </div>
                             </div>
-                            <div class="" style="margin-top: 20px;">
-                                <a class="btn btn-primary btn-block" href="profile/edit">Edit profile</a>
-                            </div>
+                            @if(Auth::user()->role != 1)
+                                <div class="" style="margin-top: 20px;">
+                                    <a class="btn btn-primary btn-block" href="profile/edit">Edit profile</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
             </div>
