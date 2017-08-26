@@ -63,6 +63,6 @@ class User extends Authenticatable
 
     public function getAvatarPath()
     {
-        return asset(config('settings.avatar_path') . $this->avatar);
+        return asset('uploads/images/' . $this->avatar);
     }
 }

@@ -40,7 +40,7 @@
      @foreach ($comments as $comment)
     <div class="media">
         <a class="pull-left" href="#">
-            <img class="media-object" src="{{$comment->user->getAvatarPath()}}" alt="">
+            <img class="media-object" src="{{$comment->user->getAvatarPath()}}" alt="avatar" style="width:60px; height:60px">
         </a>
         <div class="media-body">
             <h4 class="media-heading">{{$comment->user->name}}</h4>

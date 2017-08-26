@@ -34,6 +34,6 @@ class Post extends Model
 
     public function getImagePath()
     {
-        return asset(config('settings.image_url') . $this->image);
+        return asset('image/' . $this->image);
     }
 }
