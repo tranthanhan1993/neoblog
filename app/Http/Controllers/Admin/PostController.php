@@ -52,8 +52,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->only(['title', 'content', 'tag_id', 'published', 'summary']);
-        
-        $published = $data['published'] ? : '0';
+        $published = isset($data['published']) ? '1' : '0';
 
         if (isset($request['image'])) {
             $fileName = $this->uploadImage(null);
@@ -133,10 +132,11 @@ class PostController extends Controller
         } else {
             $fileName =  config('settings.post-img');
         }
-
+        
         $tag_id = Post::findOrFail($id)->tag->id;
         $user_id = Auth::user()->id;
-        $published = $request->published ? 1 : 0; 
+
+        $published = isset($request->published) ? '1' : '0'; 
         $content = $request->content;
         $title = $request->title;
         $summary = $request->summary;
