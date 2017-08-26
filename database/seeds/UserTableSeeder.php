@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Comment;
 
 class UserTableSeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->delete();
 
         factory(User::class)->create([
             'email' => 'admin@gmail.com',
