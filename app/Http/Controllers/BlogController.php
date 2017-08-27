@@ -7,6 +7,7 @@ use App\Models\Post;
 use Carbon\Carbon;
 use App\Models\Tag;
 use DB;
+use Auth;
 
 class BlogController extends Controller
 {

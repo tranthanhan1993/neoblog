@@ -25,13 +25,17 @@
     <!-- Comments Form -->
     <div class="well">
         <h4>Leave a Comment:</h4>
-        <form action="{{action('CommentController@store', $post->id)}}" role="form" method="post">
-             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="form-group">
-                <textarea class="form-control" rows="3" name="content"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        @if (Auth::check())
+            <form action="{{action('CommentController@store', $post->id)}}" role="form" method="post">
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" name="content"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        @else
+            <p>Login to comment this post, please</p>
+        @endif
     </div>
     <hr>
     
@@ -50,8 +54,10 @@
             <form action="{{ action('CommentController@delete', $comment->id) }}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <!-- <a class="btn btn-xs btn-info" href="action('CommentController@edit')" >Edit</a> -->
-                @if (Auth::user()->id == $comment->user->id)
-                    <button class="btn btn-xs btn-danger" type="submit" onclick="return confirm('Do you want to delete this Comment')">Delete</button>
+                @if (Auth::check())
+                    @if (Auth::user()->id == $comment->user->id)
+                        <button class="btn btn-xs btn-danger" type="submit" onclick="return confirm('Do you want to delete this Comment')">Delete</button>
+                    @endif
                 @endif
             </form>
         </div>
