@@ -40,7 +40,7 @@ class UserController extends Controller
         $user->password = $request->password;
 
         if ($user->save()) {
-            return redirect('profile')->withSuccess('Update profile success');
+            return redirect()->route('profile')->withSuccess('Update profile success');
         }
     }
 

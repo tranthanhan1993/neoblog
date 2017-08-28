@@ -20,7 +20,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         if($comment->delete()) {
-            return redirect('admin/comment')->withSuccess('Delete Comment success');
+            return redirect()->route('comment')->withSuccess('Delete Comment success');
         }
     }
 }

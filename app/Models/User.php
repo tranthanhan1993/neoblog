@@ -18,11 +18,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'gender',
         'avatar',
         'role',
-        'is_active',
-        'token_verification',
     ];
 
     /**

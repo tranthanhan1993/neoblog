@@ -70,10 +70,10 @@ class PostController extends Controller
         $post->summary = $data['summary'];
         
         if ($post->save()) {
-            return redirect('admin/post')->withSuccess('Add Post Success');
+            return redirect()->route('post.index')->withSuccess('Add Post Success');
         } 
         
-        return redirect('admin/post')->withFails('Add post not Success');
+        return redirect()->route('post.index')->withFails('Add post not Success');
 
     }
 
@@ -152,10 +152,10 @@ class PostController extends Controller
         ];
 
         if ($post->update($data)) {
-            return redirect('admin/post')->withSuccess('Update post success');
+            return redirect()->route('post.index')->withSuccess('Update post success');
         }
 
-        return redirect('admin/post')->withFails('Update Post Fails');
+        return redirect()->route('post.index')->withFails('Update Post Fails');
     }
 
     /**
@@ -169,9 +169,9 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         if ($post->delete()) {
-            return redirect('admin/post')->withSuccess('Delete Post success');
+            return redirect()->route('post.index')->withSuccess('Delete Post success');
         }
 
-        return redirect('admin/post')->withFails('Delete Post Fails');
+        return redirect()->route('post.index')->withFails('Delete Post Fails');
     }
 }

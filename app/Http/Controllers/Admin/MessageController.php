@@ -19,7 +19,7 @@ class MessageController extends Controller
     {
         $message = Message::findOrFail($id);
         if ($message->delete()) {
-            return redirect('admin/message')->withSuccess('Delete message success!!');
+            return redirect()->route('message')->withSuccess('Delete message success!!');
         }
     }
 }

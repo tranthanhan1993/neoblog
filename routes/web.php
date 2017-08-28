@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'BlogController@index');
-Route::get('post/{slug}', 'BlogController@showPost');
+Route::get('/', 'BlogController@index')->name('home');
+Route::get('post/{slug}', 'BlogController@showPost')->name('post-detail');
 
 Route::group(['middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], function(){
     Route::get('admin', 'AdminController@index');
@@ -21,10 +21,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'namespace' => 'Admin'], functi
     Route::resource('/admin/post', 'PostController');
     Route::get('/admin/post/delete/{id}', 'PostController@destroy')->where('id', '[0-9]+');
     Route::post('/admin/post/{id}', 'PostController@update');
-    Route::get('admin/upload', 'UploadController@index');
-    Route::get('admin/message', 'MessageController@index');
+    Route::get('admin/message', 'MessageController@index')->name('message');
     Route::post('admin/message/delete/{id}', 'MessageController@delete');
-    Route::get('admin/comment', 'CommentController@index');
+    Route::get('admin/comment', 'CommentController@index')->name('comment');
     Route::post('admin/comment/delete/{id}', 'CommentController@delete');
 });
 
@@ -32,11 +31,11 @@ Auth::routes();
 Route::group(['middleware'=>'auth'], function(){
     Route::get('profile', 'UserController@profile');
     Route::get('profile/edit', 'UserController@editProfile');
-    Route::post('profile/{id}', 'UserController@updateProfile');
+    Route::post('profile/{id}', 'UserController@updateProfile')->name('profile');
     Route::get('/message', 'MessageController@index');
     Route::post('/message', 'MessageController@store');
     Route::post('comment/{id}', 'CommentController@store');
-Route::post('comment/delete/{id}', 'CommentController@delete');
+    Route::post('comment/delete/{id}', 'CommentController@delete');
 });
 
 Route::get('logout', 'Auth\LoginController@logout');

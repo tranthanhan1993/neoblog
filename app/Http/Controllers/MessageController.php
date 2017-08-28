@@ -20,7 +20,7 @@ class MessageController extends Controller
         $message->content = $request->content;
 
         if ($message->save()) {
-            return redirect('/')->withSuccess('Thank you for your message!!');
+            return redirect()->route('home')->withSuccess('Thank you for your message!!');
         }
     }
 }

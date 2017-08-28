@@ -100,7 +100,7 @@ class TagController extends Controller
         $tag = Tag::findOrFail($id);
         $tag->delete();
 
-        return redirect('/admin/tag')
+        return redirect()->route('tag.index')
             ->withSuccess("The '$tag->tag' tag has been deleted.");
     }
 
